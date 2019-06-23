@@ -12,3 +12,29 @@ To install the Julia package:
 ```
 Pkg.add("https://github.com/pistacliffcho/LatentChannelNetwork.jl")
 ```
+
+## Basic Usage
+Building latent channel network object:
+```
+lcn_model = makeLCN(edgeList, K)
+```
+with `edgeList` a nx2 `Matrix{Int64}` of undirected edge pairs and `K` is the number of channels. 
+
+Fitting model:
+```
+# Parallel implementation
+em_parallel!(lcn_model, iters = 10000)
+# Serial implementation
+em_serial!(lcn_model, iters = 10000)
+```
+
+Extracting channel probabilities:
+```
+chan_probs = lcn_model.pmat
+```
+
+Plotting channel probabilities by categorical data:
+```
+heatMap(lcn_model, label)
+```
+Plots a heat map of channel probabilities, sorted by category given by vector `label`. 
